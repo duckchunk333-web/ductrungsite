@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111126"><title>StudyRoom — Học cùng nhau</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toast" class="toast" role="status"></div>
+<section id="authView" class="auth-shell">
+  <div class="auth-art"><div class="brand-mark">S</div><p class="eyebrow">HỌC CÙNG NHAU · TIẾN XA HƠN</p><h1>Một nơi để<br><span>cùng nhau hiểu bài.</span></h1><p class="muted">Tạo phòng học, thảo luận và chia sẻ tài liệu trong một không gian riêng.</p><div class="orb orb1"></div><div class="orb orb2"></div></div>
+  <div class="auth-panel">
+    <div class="brand"><div class="brand-mark small">S</div><span>StudyRoom</span></div>
+    <div class="auth-tabs"><button class="tab active" data-tab="login">Đăng nhập</button><button class="tab" data-tab="signup">Tạo tài khoản</button></div>
+    <form id="authForm">
+      <label id="nameWrap" class="hidden">Tên hiển thị<input id="displayName" autocomplete="name" placeholder="Ví dụ: Minh Anh"></label>
+      <label>Email<input id="email" type="email" autocomplete="email" placeholder="ban@email.com" required></label>
+      <label>Mật khẩu<input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="Ít nhất 6 ký tự" required></label>
+      <button class="btn primary full" id="authSubmit">Đăng nhập <span>→</span></button>
+      <p id="authHint" class="muted tiny">Chào mừng bạn quay lại.</p>
+    </form>
+    <p class="tiny muted">Tài khoản được xác thực bởi Supabase Auth.</p>
+  </div>
+</section>
+<div id="appView" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark small">S</div><span>StudyRoom</span></div>
+    <div class="side-label">KHÔNG GIAN HỌC TẬP</div>
+    <button id="homeBtn" class="nav-item active"><span>⌂</span> Tổng quan</button>
+    <div class="side-label room-label">PHÒNG CỦA BẠN <button id="createQuick" title="Tạo phòng">＋</button></div>
+    <div id="roomNav" class="room-nav"><p class="muted tiny side-empty">Chưa tham gia phòng nào</p></div>
+    <div class="sidebar-bottom"><div class="user-avatar" id="userAvatar">U</div><div class="user-meta"><b id="userName">Bạn</b><small id="userEmail"></small></div><button id="signOut" class="icon-btn" title="Đăng xuất">↗</button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><button id="mobileMenu" class="icon-btn mobile-only">☰</button><div><div class="eyebrow">KHÔNG GIAN CỦA BẠN</div><h2 id="pageTitle">Tổng quan</h2></div><div class="top-actions"><div class="searchbox"><span>⌕</span><input id="globalSearch" placeholder="Tìm tin nhắn, tài liệu…"><kbd>↵</kbd></div><button id="notifyBtn" class="icon-btn notification" title="Bật thông báo">♧<i id="notifyDot"></i></button></div></header>
+    <section id="dashboard" class="content">
+      <div class="welcome"><div><p class="eyebrow">CHÀO MỪNG ĐẾN STUDYROOM</p><h1>Học tốt hơn,<br><span>cùng nhau.</span></h1><p class="muted">Tập hợp nhóm học, trao đổi ý tưởng và lưu tài liệu ở cùng một nơi.</p><div class="welcome-actions"><button class="btn primary" id="createRoomBtn">＋ Tạo phòng học</button><button class="btn secondary" id="joinRoomBtn">Tham gia bằng mã</button></div></div><div class="welcome-graphic"><div class="graphic-card card-a">✦ <b>Ý tưởng hay</b><small>được chia sẻ</small></div><div class="graphic-card card-b"><span class="bubble">Aa</span><b>Thảo luận</b><small>cùng tiến bộ</small></div><div class="graphic-orb"></div></div></div>
+      <div class="section-heading"><div><h3>Phòng học của bạn</h3><p class="muted">Tiếp tục cuộc thảo luận gần đây</p></div><span id="roomCount" class="count-pill">0 phòng</span></div>
+      <div id="roomCards" class="room-grid"></div>
+      <div id="emptyRooms" class="empty-state"><div class="empty-icon">⌘</div><h3>Bắt đầu bằng một phòng học</h3><p class="muted">Tạo phòng mới hoặc nhập mã do bạn bè gửi.</p><button class="btn secondary" id="emptyJoin">Nhập mã phòng</button></div>
+    </section>
+    <section id="roomView" class="room-layout hidden">
+      <div class="room-head"><div class="room-heading"><div class="room-icon">✳</div><div><h3 id="activeRoomName">Phòng học</h3><p class="muted" id="activeRoomInfo">Mã phòng · thành viên</p></div></div><div class="room-head-actions"><button id="copyCode" class="btn secondary small-btn">▣ Sao chép mã</button><button id="roomManage" class="btn secondary small-btn hidden">⚙ Quản lý</button><button id="leaveRoom" class="icon-btn" title="Rời phòng">↗</button></div></div>
+      <div class="room-tabs"><button class="room-tab active" data-panel="chatPanel">◌ Thảo luận</button><button class="room-tab" data-panel="filesPanel">▤ Tài liệu <span id="fileCount" class="mini-count">0</span></button></div>
+      <div class="room-body">
+        <section id="chatPanel" class="chat-panel">
+          <div id="searchBanner" class="search-banner hidden"><span id="searchLabel"></span><button id="clearSearch" class="text-btn">Xóa tìm kiếm ×</button></div>
+          <div id="messages" class="messages"><div class="loading">Đang tải cuộc trò chuyện…</div></div>
+          <div id="replyPreview" class="reply-preview hidden"><span id="replyText"></span><button id="cancelReply" class="icon-btn">×</button></div>
+          <form id="messageForm" class="composer"><textarea id="messageInput" rows="1" maxlength="4000" placeholder="Viết điều bạn đang thắc mắc… (Enter để gửi)" required></textarea><button class="send-btn" title="Gửi tin nhắn">➤</button></form><div class="composer-hint">Enter để gửi · Shift + Enter để xuống dòng</div>
+        </section>
+        <section id="filesPanel" class="files-panel hidden"><div class="files-toolbar"><div><h3>Tài liệu phòng</h3><p class="muted">Chia sẻ bài tập, ghi chú và tài liệu học.</p></div><label class="btn primary upload-btn">＋ Tải file lên<input type="file" id="fileInput" multiple hidden></label></div><div id="uploadProgress" class="muted tiny"></div><div id="fileList" class="file-list"></div></section>
+      </div>
+    </section>
+  </main>
+</div>
+<dialog id="createDialog" class="modal"><form id="createForm" method="dialog"><button class="modal-close" type="button" data-close="createDialog">×</button><div class="modal-icon">✳</div><h2>Tạo phòng học</h2><p class="muted">Đặt tên để nhóm của bạn dễ tìm.</p><label>Tên phòng<input id="newRoomName" maxlength="60" placeholder="Ví dụ: Ôn tập Toán 11" required></label><label>Mô tả <span class="muted">(không bắt buộc)</span><textarea id="newRoomDesc" rows="3" maxlength="240" placeholder="Mục tiêu hoặc nội dung ôn tập…"></textarea></label><button class="btn primary full" type="submit">Tạo phòng mới →</button></form></dialog>
+<dialog id="joinDialog" class="modal"><form id="joinForm" method="dialog"><button class="modal-close" type="button" data-close="joinDialog">×</button><div class="modal-icon">⌘</div><h2>Tham gia phòng</h2><p class="muted">Nhập mã phòng mà bạn bè đã chia sẻ.</p><label>Mã phòng<input id="joinCode" maxlength="12" placeholder="VD: A7K9P2" required autocapitalize="characters"></label><button class="btn primary full" type="submit">Tham gia phòng →</button></form></dialog>
+<dialog id="manageDialog" class="modal"><form method="dialog"><button class="modal-close" type="button" data-close="manageDialog">×</button><div class="modal-icon">⚙</div><h2>Quản lý phòng</h2><p class="muted">Chủ phòng có thể chỉnh sửa thông tin và quản lý thành viên.</p><label>Tên phòng<input id="editRoomName" maxlength="60" required></label><label>Mô tả<textarea id="editRoomDesc" rows="2" maxlength="240"></textarea></label><div class="member-title">Thành viên <span id="memberCount"></span></div><div id="memberList" class="member-list"></div><button id="saveRoom" class="btn primary full" type="button">Lưu thay đổi</button><button id="deleteRoom" class="btn danger full" type="button">Xóa phòng học</button></form></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script>
+</body></html>
